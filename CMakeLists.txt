@@ -9,7 +9,7 @@ if(APPLE)
     link_directories(/usr/local/Cellar/raylib/3.5.0/lib)
 endif()
 
-add_executable(novelty Sources/main.c Sources/Launcher/launcher.c)
+add_executable(novelty Sources/main.c Sources/Launcher/launcher.c Sources/Launcher/parse_settings.c)
 
 #add_custom_command(
 #        TARGET novelty PRE_BUILD
