@@ -8,6 +8,8 @@
 #ifndef launcher_h
 #define launcher_h
 
-#include <stdio.h>
+#define DEFAULT_FILENAME "settings.ini"
+
+void read_settings();
 
 #endif /* launcher_h */

@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include "raylib.h"
 #include "novelty.h"
+#include "launcher.h"
 
 void startup()
 {
@@ -29,6 +30,7 @@ void startup()
 		menuChoices[i].height	=	30.0;
 	}
 	// TODO: read from file
+	read_settings();
 	InitWindow(screenWidth, screenHeight, "Visual Novelty - Launcher");
 	SetTargetFPS(60);
 	while (!WindowShouldClose())
@@ -41,7 +43,7 @@ void startup()
 			DrawTextRec(GetFontDefault(), choicesName[i], menuChoices[i], 30.0, 1.0, true, BLACK);
 		}
 		for (int i = 0; i < MAX_MENU_CHOICES; i++) {
-			if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+			if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
 				if (CheckCollisionPointRec(mousePos, menuChoices[i])) {
 					printf("Clicked on:\t%s\n", choicesName[i]);
 				}
