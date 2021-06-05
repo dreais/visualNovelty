@@ -11,5 +11,6 @@ int main(void)
 {
 	launcher_startup();
 
+	registry_input();
 	return 0;
 }

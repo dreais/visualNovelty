@@ -35,17 +35,17 @@ static settings DEFAULT_SETTINGS[3] = {
 
 // FUNCTIONS
 
-static char *fetch_file(FILE *settingsFile)
+char *fetch_file(FILE *currentFile)
 {
     char *fileContent = NULL;
     long fileSize;
 
-    fseek(settingsFile, 0, SEEK_END);
-    fileSize = ftell(settingsFile);
-    fseek(settingsFile, 0, SEEK_SET);
+    fseek(currentFile, 0, SEEK_END);
+    fileSize = ftell(currentFile);
+    fseek(currentFile, 0, SEEK_SET);
     fileContent = malloc(fileSize + 1);
-    fread(fileContent, 1, fileSize, settingsFile);
-    fclose(settingsFile);
+    fread(fileContent, 1, fileSize, currentFile);
+    fclose(currentFile);
     fileContent[fileSize] = 0;
     return fileContent;
 }
