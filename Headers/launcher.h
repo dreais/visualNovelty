@@ -8,8 +8,10 @@
 #ifndef launcher_h
 #define launcher_h
 
+#include "novelty.h"
+
 #define DEFAULT_FILENAME "settings.ini"
 
-void read_settings();
+settings *read_settings(void);
 
 #endif /* launcher_h */

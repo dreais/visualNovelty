@@ -5,11 +5,11 @@
 //  Created by Valentin Lattay on 03/06/2021.
 //
 
-#include "raylib.h"
 #include "novelty.h"
 
 int main(void)
 {
-	startup();
+	launcher_startup();
+
 	return 0;
 }

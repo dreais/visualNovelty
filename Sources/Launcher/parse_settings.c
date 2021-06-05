@@ -32,7 +32,10 @@ static settings DEFAULT_SETTINGS[3] = {
         {"control", control_default, 3}
 };
 
-char *fetch_file(FILE *settingsFile)
+
+// FUNCTIONS
+
+static char *fetch_file(FILE *settingsFile)
 {
     char *fileContent = NULL;
     long fileSize;
@@ -47,7 +50,7 @@ char *fetch_file(FILE *settingsFile)
     return fileContent;
 }
 
-void parse_file(FILE *settingsFile)
+static void parse_file(FILE *settingsFile, settings *gameSettings)
 {
     char *fileContent;
 
@@ -55,14 +58,15 @@ void parse_file(FILE *settingsFile)
     printf("%s\n", fileContent);
 }
 
-void read_settings()
+settings *read_settings(void)
 {
     FILE *settingsFile;
+    settings *gameSettings = {0};
 
     if (access(DEFAULT_FILENAME, F_OK) == 0) {
         // IF FILE EXISTS
         settingsFile = fopen(DEFAULT_FILENAME, "rb");
-        parse_file(settingsFile);
+        parse_file(settingsFile, gameSettings);
     } else {
         // IF FILE DOES NOT EXIST
         settingsFile = fopen(DEFAULT_FILENAME, "wb");
@@ -76,5 +80,7 @@ void read_settings()
             }
             fprintf(settingsFile, "\n"); // for clarity
         }
+        gameSettings = DEFAULT_SETTINGS;
     }
+    return gameSettings;
 }

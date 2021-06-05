@@ -10,7 +10,7 @@
 #include "novelty.h"
 #include "launcher.h"
 
-void startup()
+void launcher_startup(void)
 {
 	const int screenWidth = 800;
 	const int screenHeight = 450;
@@ -22,6 +22,7 @@ void startup()
 		"Sound",
 		"Control"
 	};
+	settings *gameSettings;
 
 	for (int i = 0; i < MAX_MENU_CHOICES; i++) {
 		menuChoices[i].x		=	40.0;
@@ -30,7 +31,8 @@ void startup()
 		menuChoices[i].height	=	30.0;
 	}
 	// TODO: read from file
-	read_settings();
+	gameSettings = read_settings();
+
 	InitWindow(screenWidth, screenHeight, "Visual Novelty - Launcher");
 	SetTargetFPS(60);
 	while (!WindowShouldClose())

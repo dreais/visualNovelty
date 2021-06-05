@@ -23,6 +23,6 @@ typedef struct {
 
 // Launcher
 #define MAX_MENU_CHOICES 4
-void startup(void);
+void launcher_startup(void);
 
 #endif /* novelty_h */
