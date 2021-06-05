@@ -22,11 +22,24 @@ typedef struct {
     int componentSize;
 } settings;
 
+//typedef enum {
+//    Volume,
+//    Chapter,
+//    Dialog
+//} registryType;
+
+#define FOREACH_REGISTRYTYPE(TYPE) \
+        TYPE(Volume)   \
+        TYPE(Chapter)  \
+        TYPE(Dialog)   \
+
+#define GENERATE_ENUM(ENUM) ENUM,
+#define GENERATE_STRING(STRING) #STRING,
+
 typedef enum {
-    Volume,
-    Chapter,
-    Dialog
+    FOREACH_REGISTRYTYPE(GENERATE_ENUM)
 } registryType;
+
 
 typedef struct {
     registryType type;
@@ -48,5 +61,7 @@ char *fetch_file(FILE *currentFile);
 #define MAX_SCRIPT_PATH 2048
 void registry_input(void);
 
+// Scripts
+void lexing_file_content(char **filesArray, unsigned int filesArraySize);
 
 #endif /* novelty_h */

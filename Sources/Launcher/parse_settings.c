@@ -43,9 +43,13 @@ char *fetch_file(FILE *currentFile)
     fseek(currentFile, 0, SEEK_END);
     fileSize = ftell(currentFile);
     fseek(currentFile, 0, SEEK_SET);
-    fileContent = malloc(fileSize + 1);
+    fileContent = malloc(fileSize + 2);
     fread(fileContent, 1, fileSize, currentFile);
     fclose(currentFile);
+    if (fileContent[fileSize - 1] != '\n') {
+        fileContent[fileSize] = '\n';
+        fileSize++;
+    }
     fileContent[fileSize] = 0;
     return fileContent;
 }

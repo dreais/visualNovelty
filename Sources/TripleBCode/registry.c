@@ -34,7 +34,7 @@ static void file_into_array(const char fileName[260], char **filesArray, unsigne
     if (filesArraySize == 1) {
         filesArray[0] = strdup(fileContent);
     } else {
-        filesArray = realloc(filesArray, sizeof(char *) * filesArraySize);
+        realloc(filesArray, sizeof(char *) * filesArraySize);
         filesArray[filesArraySize - 1] = strdup(fileContent);
     }
 }
@@ -50,10 +50,10 @@ static void iterate_directory(DIR *scriptDir)
             if (strcmp(get_filename_ext(currentFile->d_name), ".bbc") != 0) {
                 filesArraySize++;
                 file_into_array(currentFile->d_name, filesArray, filesArraySize);
-                printf("%s\n", filesArray[filesArraySize-1]);
             }
         }
     }
+    lexing_file_content(filesArray, filesArraySize);
 }
 
 void registry_input(void)
