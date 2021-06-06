@@ -8,6 +8,7 @@
 
 #include <sys/types.h>
 #include <dirent.h>
+#include <stdlib.h>
 
 static char fullScriptPath[MAX_SCRIPT_PATH] = {0};
 
@@ -26,24 +27,25 @@ static void file_into_array(const char fileName[260], char **filesArray, unsigne
     char fullPath[MAX_SCRIPT_PATH] = {0};
     FILE *currentFile;
     char *fileContent;
+    char *debug;
 
     strcat(fullPath, fullScriptPath);
     strcat(fullPath, fileName);
     currentFile = fopen(fullPath, "rb");
     fileContent = fetch_file(currentFile);
-    if (filesArraySize == 1) {
-        filesArray[0] = strdup(fileContent);
-    } else {
-        realloc(filesArray, sizeof(char *) * filesArraySize);
-        filesArray[filesArraySize - 1] = strdup(fileContent);
-    }
+    filesArray = realloc(filesArray, sizeof(char *) * filesArraySize);
+    filesArray[filesArraySize - 1] = strdup(fileContent);
+    printf("%s\n", filesArray[filesArraySize - 1]);
+    debug = filesArray[filesArraySize - 1];
+    //printf("{{%s}}\n", fileContent);
+
 }
 
 static void iterate_directory(DIR *scriptDir)
 {
     struct dirent *currentFile;
     unsigned int filesArraySize = 0;
-    char **filesArray = malloc(sizeof(char *) * filesArraySize + 1);
+    char **filesArray = malloc(sizeof(char *) * filesArraySize);
 
     while ((currentFile = readdir(scriptDir)) != NULL) {
         if (currentFile->d_name[0] != '.') {
@@ -54,6 +56,7 @@ static void iterate_directory(DIR *scriptDir)
         }
     }
     lexing_file_content(filesArray, filesArraySize);
+    exit(-1);
 }
 
 void registry_input(void)

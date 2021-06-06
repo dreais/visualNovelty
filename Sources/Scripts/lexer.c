@@ -2,8 +2,6 @@
 // Created by Valentin on 6/5/2021.
 //
 
-#include <stdio.h>
-#include <stdbool.h>
 #include "novelty.h"
 #include <string.h>
 
@@ -11,9 +9,13 @@ static const char *REGISTRY_TYPE_STRING[] = {
         FOREACH_REGISTRYTYPE(GENERATE_STRING)
 };
 
-bool is_registry_type(registryType type, char *token)
+int is_registry_type(char *token)
 {
-    return true;
+    for (int i = 0; i < (sizeof(REGISTRY_TYPE_STRING) / sizeof(REGISTRY_TYPE_STRING[0])); i++) {
+        if (strcmp(REGISTRY_TYPE_STRING[i], token) == 0)
+            return i;
+    }
+    return -1;
 }
 
 void lexing_file_content(char **filesArray, unsigned int filesArraySize)
@@ -32,7 +34,12 @@ void lexing_file_content(char **filesArray, unsigned int filesArraySize)
                 strncpy(tempLine, filesArray[i] + offset, lineSize);
                 offset = j + 1;
                 lineSize = 0;
+                printf("[DEBUG]:{%s}\n", tempLine);
+                explode_from_line(tempLine);
+                free(tempLine);
             }
         }
+        offset = 0;
+        lineSize = 0;
     }
 }

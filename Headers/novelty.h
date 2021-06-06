@@ -10,6 +10,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 
 struct keyVal {
     char key[24];
@@ -29,9 +30,9 @@ typedef struct {
 //} registryType;
 
 #define FOREACH_REGISTRYTYPE(TYPE) \
-        TYPE(Volume)   \
-        TYPE(Chapter)  \
-        TYPE(Dialog)   \
+        TYPE(volume)   \
+        TYPE(chapter)  \
+        TYPE(dialog)   \
 
 #define GENERATE_ENUM(ENUM) ENUM,
 #define GENERATE_STRING(STRING) #STRING,
@@ -63,5 +64,7 @@ void registry_input(void);
 
 // Scripts
 void lexing_file_content(char **filesArray, unsigned int filesArraySize);
+void explode_from_line(char *line);
+int is_registry_type(char *token);
 
 #endif /* novelty_h */
