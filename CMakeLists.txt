@@ -9,13 +9,13 @@ if(APPLE)
     link_directories(/usr/local/Cellar/raylib/3.5.0/lib)
 endif()
 
-add_executable(novelty Sources/main.c Sources/Launcher/launcher.c Sources/Launcher/parse_settings.c)
+add_executable(novelty Sources/main.c Sources/Launcher/launcher.c Sources/Launcher/parse_settings.c Sources/TripleBCode/registry.c Headers/userConfig.h Sources/Scripts/lexer.c Sources/Scripts/explode_params.c)
 
-#add_custom_command(
-#        TARGET novelty PRE_BUILD
-#        COMMAND ${CMAKE_COMMAND} -E copy_directory
-#        ${CMAKE_SOURCE_DIR}/Resources/ $<TARGET_FILE_DIR:novelty>/Resources
-#)
+add_custom_command(
+        TARGET novelty PRE_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory
+        ${CMAKE_SOURCE_DIR}/Scripts/ $<TARGET_FILE_DIR:novelty>/Scripts
+)
 
 if (WIN32)
     target_link_libraries(
